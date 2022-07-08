@@ -82,12 +82,16 @@ public class UF_HWQUPC implements UF {
         validate(p);
         int root = p;
         // FIXME
+        while(root != parent[root]) {
+            doPathCompression(root);
+            root = parent[root];
+        }
         // END
         return root;
     }
 
     /**
-     * Returns true if the the two sites are in the same component.
+     * Returns true if the two sites are in the same component.
      *
      * @param p the integer representing one site
      * @param q the integer representing the other site
@@ -101,7 +105,7 @@ public class UF_HWQUPC implements UF {
     }
 
     /**
-     * Merges the component containing site {@code p} with the
+     * Merges the component containing site {@code p} with
      * the component containing site {@code q}.
      *
      * @param p the integer representing one site
@@ -178,6 +182,8 @@ public class UF_HWQUPC implements UF {
      */
     private void doPathCompression(int i) {
         // FIXME update parent to value of grandparent
+        if (this.pathCompression)
+            parent[i] = parent[parent[i]];
         // END
     }
 }
